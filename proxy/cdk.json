@@ -74,8 +74,6 @@
     "@aws-cdk/aws-rds:setCorrectValueForDatabaseInstanceReadReplicaInstanceResourceId": true,
     "@aws-cdk/core:cfnIncludeRejectComplexResourceUpdateCreatePolicyIntrinsics": true,
     "@aws-cdk/aws-lambda-nodejs:sdkV3ExcludeSmithyPackages": true,
-
-    // Add our custom proxy configuration
     "proxy-config": {
       "vpc": {
         "cidr": "10.2.0.0/16",
