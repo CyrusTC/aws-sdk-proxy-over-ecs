@@ -52,7 +52,7 @@ The stack can be configured through the `cdk.json` file in the `context` section
 {
   "proxy-config": {
     "vpc": {
-      "cidr": "10.2.0.0/16", 
+      "cidr": "10.2.0.0/16",
       "maxAzs": 3
     }
   }
@@ -68,11 +68,11 @@ Example values:
 
 ```json
 {
-    "proxy-config": {
-        "loadBalancer": {
-            "isPublic": false 
-        }
+  "proxy-config": {
+    "loadBalancer": {
+      "isPublic": false
     }
+  }
 }
 ```
 
@@ -82,7 +82,7 @@ Example: Deploy with different VPC CIDR
 
 ```bash
 cdk deploy -c proxy-config.vpc.cidr=172.16.0.0/16
-````
+```
 
 Example: Deploy with public load balancer
 
@@ -106,15 +106,15 @@ cdk deploy
 
 After deployment, the proxy endpoint URL will be displayed in the outputs.
 
-## Using the Bedrock Client
+## Using the S3 SDK Client
 
-The `bedrock.js` script demonstrates how to use AWS Bedrock through the proxy. To run it:
+The `s3.js` or `bedrock.js` script demonstrates how to use AWS SDK through the proxy. To run it:
 
 1. Install dependencies:
 
 ```bash
 cd example/squid-proxy
-npm install @aws-sdk/client-bedrock-runtime https-proxy-agent
+npm install
 ```
 
 2. Configure the script:
@@ -122,7 +122,7 @@ npm install @aws-sdk/client-bedrock-runtime https-proxy-agent
 Without proxy:
 
 ```javascript
-const client = new BedrockRuntimeClient({
+const client = new S3Client({
   region: "us-east-1",
   // Comment out or remove the proxy configuration
   // httpAgent: new HttpsProxyAgent('...'),
@@ -133,7 +133,7 @@ const client = new BedrockRuntimeClient({
 With proxy:
 
 ```javascript
-const client = new BedrockRuntimeClient({
+const client = new S3Client({
   region: "us-east-1",
   httpAgent: new HttpsProxyAgent("http://your-nlb-dns:3128"),
   httpsAgent: new HttpsProxyAgent("http://your-nlb-dns:3128"),
@@ -145,6 +145,7 @@ Replace `your-nlb-dns` with the proxy endpoint URL from the stack outputs.
 3. Run the script:
 
 ```bash
+node s3.js
 node bedrock.js
 ```
 
@@ -155,4 +156,4 @@ The script will send a test prompt to Claude 3 and stream the response.
 - Default VPC CIDR is 10.2.0.0/16 with 3 availability zones
 - Load balancer is private by default
 - The proxy runs on port 3128
-- Make sure your AWS credentials have the necessary permissions for Bedrock and ECS
+- Make sure your AWS credentials have the necessary permissions for AWS Services
