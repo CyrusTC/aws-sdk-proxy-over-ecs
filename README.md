@@ -52,8 +52,8 @@ The stack can be configured through the `cdk.json` file in the `context` section
 {
   "proxy-config": {
     "vpc": {
-      "cidr": "10.2.0.0/16", // VPC CIDR range
-      "maxAzs": 3 // Number of Availability Zones (1-3)
+      "cidr": "10.2.0.0/16", 
+      "maxAzs": 3
     }
   }
 }
@@ -66,15 +66,15 @@ Example values:
 
 ### Load Balancer Configuration
 
-````json
+```json
 {
     "proxy-config": {
         "loadBalancer": {
-            "isPublic": false // true for public, false for private
+            "isPublic": false 
         }
     }
 }
-
+```
 
 You can override these configurations using CDK context parameters:
 
